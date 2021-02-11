@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +15,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.index', [
+            'users' => User::orderBy('name')->get(),
+        ]);
     }
 
     /**
@@ -23,7 +27,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create', [
+            'user' => (new User()),
+        ]);
     }
 
     /**
@@ -34,19 +40,14 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->fill($request->only(['name', 'email', 'role']));
+        $user->password = Hash::make($request->get('password'));
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -54,9 +55,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('users.edit', [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -66,9 +69,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user->fill($request->only(['name', 'email', 'role']));
+        if($request->has('password')){
+            $user->password = Hash::make($request->get('password'));
+        }
+        $user->save();
+
+        return redirect()->route('users.index');
     }
 
     /**
@@ -77,8 +86,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->back();
     }
 }
