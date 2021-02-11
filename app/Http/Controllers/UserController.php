@@ -72,7 +72,7 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $user->fill($request->only(['name', 'email', 'role']));
-        if($request->has('password')){
+        if($request->has('password') && strlen($request->get('password') > 0)){
             $user->password = Hash::make($request->get('password'));
         }
         $user->save();
