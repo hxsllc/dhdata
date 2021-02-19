@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Record;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecordController extends Controller
 {
@@ -14,8 +15,28 @@ class RecordController extends Controller
      */
     public function index()
     {
+        $records = new Record;
+
+        if($collection = request('shelfmark')){
+            $records = $records->where('mCollection', 'LIKE', '%'.$collection.'%');
+        }
+        if($codex = request('codex')){
+            $records = $records->where('mCodexNumberOld', 'LIKE', '%'.$codex.'%');
+        }
+        if($roll = request('roll')){
+            $records = $records->where('rServiceCopyNumber', 'LIKE', '%'.$roll.'%');
+        }
+        if($updated = request('updated')){
+            $records = $records->where('lastUpdatedBy', 'LIKE', '%'.$updated.'%');
+        }
+
         return view('records.index', [
-            'records' => Record::paginate(25),
+            'records' => $records->orderBy('lastUpdatedOn', 'DESC')->paginate(25),
+            'collections' => DB::connection('slu')
+                                    ->table('SLU_SQL')
+                                    ->select(DB::raw('DISTINCT mCollection'))
+                                    ->orderBy('mCollection')
+                                    ->get(),
         ]);
     }
 

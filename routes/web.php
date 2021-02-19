@@ -17,9 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index'])->name('records.index');
