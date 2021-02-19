@@ -21,6 +21,13 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index'])->name('records.index');
+    Route::get('/records/{record}/edit', [\App\Http\Controllers\RecordController::class, 'edit'])->name('records.edit');
+    Route::put('/records/{record}', [\App\Http\Controllers\RecordController::class, 'update'])->name('records.update');
+    Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'push'])->name('records.push');
+});
+
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'admin'])->group(function() {
