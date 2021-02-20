@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Editor') }}
+            {{ __('Metadata Editor') }}
         </h2>
     </x-slot>
 
@@ -15,7 +15,7 @@
                     <div class="flex flex-col">
                         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                <div class="my-12">
+                                <div class="my-6">
                                     <form action="{{ route('records.update', ['record' => $record]) }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 sm:gap-x-8">
                                         @csrf
                                         @method('PUT')
@@ -121,6 +121,18 @@
                                                            value="{{ $record->part }}"
                                                            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="relative sm:col-span-4">
+                                            <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                                <div class="w-full border-t border-gray-300"></div>
+                                            </div>
+                                            <div class="relative flex justify-center">
+                                                <span class="bg-white px-2 text-gray-500">
+                                                  <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                    <path fill="#6B7280" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                                                  </svg>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="sm:col-span-1">
