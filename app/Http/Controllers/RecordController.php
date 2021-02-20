@@ -94,8 +94,25 @@ class RecordController extends Controller
      */
     public function update(Request $request, Record $record)
     {
-        $record->fill($request->only());
-        $record->save();
+        $record->fill($request->only([
+            'mCity',
+            'mRepository',
+            'rServiceCopyNumber',
+            'mCollection',
+            'mCodexNumberOld',
+            'rMasterNegNumber',
+            'mCodexNumberNew',
+            'mQualifier',
+            'mCountry',
+            'mLanguage',
+            'mTextReference',
+            'mDateDigitized',
+            'mFolderNumber',
+        ]));
+        $record->lastUpdatedBy = auth()->user()->name;
+
+        dd($record->attributesToArray());
+        //$record->save();
 
         return redirect()->route('records.index');
     }
