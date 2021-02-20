@@ -49,7 +49,8 @@ class Record extends Model
 
     public function getPartAttribute()
     {
-        if($part = Str::of($this->attributes['mCodexNumberOld'])->match('/\([0-9]++\)/')){
+        $part = Str::of($this->attributes['mCodexNumberOld'])->match('/\([0-9]++\)/');
+        if($part->trim()->isNotEmpty()){
             return $part->trim('()')->padLeft(2, '0');
         }else{
             return '01';
