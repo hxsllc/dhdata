@@ -16,19 +16,20 @@ class Record extends Model
 
     protected $connection = "slu";
 
-    protected $table = "SLU_SQL";
+    protected $table = "00SLUCatalog";
 
     protected $fillable = [
+        'mCollection',
         'mCity',
         'mRepository',
         'rServiceCopyNumber',
-        'mCollection',
         'mCodexNumberOld',
         'rMasterNegNumber',
         'mCodexNumberNew',
         'mQualifier',
         'mCountry',
         'mLanguage',
+        'mCentury',
         'mTextReference',
         'mDateDigitized',
         'mFolderNumber',
@@ -49,11 +50,23 @@ class Record extends Model
 
     public function getPartAttribute()
     {
+        $this->attributes['qualifier_is_edited'] = false;
+        $qualifier = Str::of($this->attributes['mQualifier'])->trim();
+        if($qualifier->isNotEmpty()){
+            if($qualifier->match('/[1-9]/')){
+                $this->attributes['qualifier_is_edited'] = true;
+                return $qualifier->padLeft(2, '0');
+            }else{
+                return $this->attributes['mQualifier'];
+            }
+        }
+
         $part = Str::of($this->attributes['mCodexNumberOld'])->match('/\([0-9]++\)/');
         if($part->trim()->isNotEmpty()){
+            $this->attributes['qualifier_is_edited'] = true;
             return $part->trim('()')->padLeft(2, '0');
         }else{
-            return '01';
+            return '';
         }
     }
 

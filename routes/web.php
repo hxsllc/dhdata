@@ -21,6 +21,8 @@ Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->midd
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index'])->name('records.index');
+    Route::get('/records/create', [\App\Http\Controllers\RecordController::class, 'create'])->name('records.create');
+    Route::post('/records', [\App\Http\Controllers\RecordController::class, 'store'])->name('records.store');
     Route::get('/records/{record}/edit', [\App\Http\Controllers\RecordController::class, 'edit'])->name('records.edit');
     Route::put('/records/{record}', [\App\Http\Controllers\RecordController::class, 'update'])->name('records.update');
     Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'push'])->name('records.push');

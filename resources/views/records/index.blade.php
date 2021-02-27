@@ -9,14 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-visible shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    {{--<a href="{{ route('users.create') }}" class="inline-flex items-center px-4 py-2 mb-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        {{ __('Add User') }}
-                    </a>--}}
+                    <a href="{{ route('records.create') }}" class="inline-flex items-center px-4 py-2 mb-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        {{ __('Add Record') }}
+                    </a>
                     <div class="flex flex-col">
                         <div class="-my-2 sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle sm:px-6 lg:px-8">
 
-                                <div class="my-12">
+                                <div class="my-4">
                                     <form action="#" method="GET" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 lg:grid-cols-5 sm:gap-x-8">
                                         <div class="sm:col-span-1">
                                             <div>
@@ -138,10 +138,10 @@
                                                     {{ $record->mDateDigitized }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    <a href="{{ route('records.edit', ['record' => $record]) }}" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                    <a href="{{ route('records.edit', ['record' => $record]) }}" class="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                         {{ _('Edit') }}
                                                     </a>
-                                                    <a href="{{ route('records.push', ['record' => $record]) }}" class="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                    <a href="{{ route('records.push', ['record' => $record]) }}" class="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                                                         {{ _('Push to Queue') }}
                                                     </a>
                                                 </td>

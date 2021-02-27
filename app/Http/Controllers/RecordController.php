@@ -47,7 +47,7 @@ class RecordController extends Controller
      */
     public function create()
     {
-        //
+        return view('records.create');
     }
 
     /**
@@ -58,7 +58,19 @@ class RecordController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $record = new Record;
+        $record->fill($request->only([
+            'mCity',
+            'mRepository',
+            'rServiceCopyNumber',
+            'mCollection',
+            'mCodexNumberOld',
+        ]));
+        $record->lastUpdatedBy = auth()->user()->name;
+
+        $record->save();
+
+        return redirect()->route('records.index');
     }
 
     /**
@@ -104,6 +116,7 @@ class RecordController extends Controller
             'mCodexNumberNew',
             'mQualifier',
             'mCountry',
+            'mCentury',
             'mLanguage',
             'mTextReference',
             'mDateDigitized',
@@ -111,8 +124,7 @@ class RecordController extends Controller
         ]));
         $record->lastUpdatedBy = auth()->user()->name;
 
-        dd($record->attributesToArray());
-        //$record->save();
+        $record->save();
 
         return redirect()->route('records.index');
     }
