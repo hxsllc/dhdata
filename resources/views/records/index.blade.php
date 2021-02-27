@@ -135,7 +135,7 @@
                                                     {{ $record->mQualifier }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                    {{ $record->mDateDigitized ?? '' }}
+                                                    {{ ($record->mDateDigitized != '0000-00-00' ? $record->mDateDigitized : '' ) }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     <a href="{{ route('records.edit', ['record' => $record]) }}" class="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
