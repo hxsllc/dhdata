@@ -66,7 +66,7 @@ class RecordController extends Controller
             'mCollection',
             'mCodexNumberOld',
         ]));
-        $record->lastUpdatedBy = auth()->user()->name;
+        $record->lastUpdatedBy = auth()->user()->email;
 
         $record->save();
 
@@ -122,7 +122,7 @@ class RecordController extends Controller
             'mDateDigitized',
             'mFolderNumber',
         ]));
-        $record->lastUpdatedBy = auth()->user()->name;
+        $record->lastUpdatedBy = auth()->user()->email;
 
         $record->save();
 
