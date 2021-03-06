@@ -34,15 +34,20 @@
                                         <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
                                             <div class="sm:col-span-1">
                                                 <div>
-                                                    <label for="mCollection" class="block text-sm font-medium text-gray-700">Collection</label>
-                                                    <div class="">
-                                                        <input type="text"
-                                                               name="mCollection"
-                                                               id="mCollection"
-                                                               placeholder=""
-                                                               value=""
-                                                               class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                                                    </div>
+                                                    <label for="mCollection" class="sr-only">Collection</label>
+                                                    <select id="mCollection"
+                                                            name="mCollection"
+                                                            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+                                                            required>
+                                                        <option value="">-- Select Collection --</option>
+                                                        @foreach($collections as $collection)
+                                                            @if(! empty($collection->mCollection))
+                                                                <option value="{{ $collection->mCollection }}">
+                                                                    {{ $collection->mCollection }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

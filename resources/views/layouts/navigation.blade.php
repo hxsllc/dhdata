@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('records.index')" :active="request()->routeIs('records')">
                         {{ __('Source Data') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('queue.index')" :active="request()->routeIs('queue')">
+                        {{ __('Web Queue') }}
+                    </x-nav-link>
                 </div>
             </div>
 

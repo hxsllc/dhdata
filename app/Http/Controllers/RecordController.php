@@ -6,6 +6,7 @@ use App\Models\Record;
 use App\Models\WebRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class RecordController extends Controller
 {
@@ -50,6 +51,11 @@ class RecordController extends Controller
     {
         return view('records.create', [
             'record' => new Record(),
+            'collections' => DB::connection('slu')
+                ->table('SLU_SQL')
+                ->select(DB::raw('DISTINCT mCollection'))
+                ->orderBy('mCollection')
+                ->get(),
         ]);
     }
 
@@ -160,10 +166,20 @@ class RecordController extends Controller
     public function pushToQueue(REquest $request, Record $record)
     {
         $request->validate([
-            'vfl_roll' => 'required|max:10',
-            'codex' => 'required|max:10',
-            'vfl_part' => 'required|max:10',
+
         ], $record->toArray());
+
+        $validator = Validator::make($record->toArray(), [
+            'rMasterNegNumber' => 'required|max:10',
+            'mCodexNumberNew' => 'required|max:10',
+            'mQualifier' => 'required|max:10',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('records.index')
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $webRecord = new WebRecord;
         $webRecord->vfl_roll = $record->rMasterNegNumber;
@@ -179,7 +195,10 @@ class RecordController extends Controller
         $webRecord->int_roll = intval($record->vfl_roll);
         $webRecord->int_manu = intval($record->codex);
         $webRecord->int_part = intval($record->vfl_part);
+        $webRecord->published = 0;
         //$webRecord->century_named = $record->;
         $webRecord->save();
+
+        return redirect()->route('records.index');
     }
 }
