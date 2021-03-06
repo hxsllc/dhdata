@@ -30,7 +30,26 @@
                                 <div class="my-6">
                                     <form action="{{ route('records.store') }}" method="POST" class="">
                                         @csrf
+
                                         <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
+                                            <div class="sm:col-span-1">
+                                                <div>
+                                                    <label for="mCollection" class="block text-sm font-medium text-gray-700">Collection</label>
+                                                    <div class="">
+                                                        <input type="text"
+                                                               name="mCollection"
+                                                               id="mCollection"
+                                                               placeholder=""
+                                                               value=""
+                                                               class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        @include('records.form')
+
+                                        {{--<div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
                                             <div class="sm:col-span-1">
                                                 <div>
                                                     <label for="mCity" class="block text-sm font-medium text-gray-700">City</label>
@@ -108,7 +127,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>--}}
 
                                         <div class="sm:col-span-4 mt-8">
                                             <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Record;
+use App\Models\WebRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -47,7 +48,9 @@ class RecordController extends Controller
      */
     public function create()
     {
-        return view('records.create');
+        return view('records.create', [
+            'record' => new Record(),
+        ]);
     }
 
     /**
@@ -60,11 +63,20 @@ class RecordController extends Controller
     {
         $record = new Record;
         $record->fill($request->only([
-            'mCity',
-            'mRepository',
-            'rServiceCopyNumber',
             'mCollection',
+            'mSubCollection01',
+            'mSubCollection02',
+            'mSubCollection03',
+            'rNotes',
+            'rServiceCopyNumber',
+            'rMasterNegNumber',
             'mCodexNumberOld',
+            'mCodexNumberNew',
+            'mQualifier',
+            'mCountry',
+            'mLanguage',
+            'mCentury',
+            'mTextReference',
         ]));
         $record->lastUpdatedBy = auth()->user()->email;
 
@@ -107,20 +119,19 @@ class RecordController extends Controller
     public function update(Request $request, Record $record)
     {
         $record->fill($request->only([
-            'mCity',
-            'mRepository',
-            'rServiceCopyNumber',
-            'mCollection',
-            'mCodexNumberOld',
+            'mSubCollection01',
+            'mSubCollection02',
+            'mSubCollection03',
+            'rNotes',
             'rMasterNegNumber',
             'mCodexNumberNew',
             'mQualifier',
             'mCountry',
-            'mCentury',
             'mLanguage',
+            'mCentury',
             'mTextReference',
-            'mDateDigitized',
             'mFolderNumber',
+            'mDateDigitized',
         ]));
         $record->lastUpdatedBy = auth()->user()->email;
 
@@ -141,13 +152,34 @@ class RecordController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Push Item Record to Web Queue.
      *
      * @param  Record $record
      * @return \Illuminate\Http\Response
      */
-    public function push(Record $record)
+    public function pushToQueue(REquest $request, Record $record)
     {
-        //
+        $request->validate([
+            'vfl_roll' => 'required|max:10',
+            'codex' => 'required|max:10',
+            'vfl_part' => 'required|max:10',
+        ], $record->toArray());
+
+        $webRecord = new WebRecord;
+        $webRecord->vfl_roll = $record->rMasterNegNumber;
+        $webRecord->shelfmark = $record->mCollection;
+        $webRecord->codex = $record->mCodexNumberNew;
+        $webRecord->vfl_part = $record->mQualifier;
+        $webRecord->century = $record->mCentury;
+        $webRecord->country = $record->mCountry;
+        $webRecord->language = $record->mLanguage;
+        $webRecord->reference = $record->mTextReference;
+        $webRecord->metascripta_id = $record->mFolderNumber;
+        $webRecord->date_digitized = $record->mDateDigitized;
+        $webRecord->int_roll = intval($record->vfl_roll);
+        $webRecord->int_manu = intval($record->codex);
+        $webRecord->int_part = intval($record->vfl_part);
+        //$webRecord->century_named = $record->;
+        $webRecord->save();
     }
 }

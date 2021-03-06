@@ -25,7 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/records', [\App\Http\Controllers\RecordController::class, 'store'])->name('records.store');
     Route::get('/records/{record}/edit', [\App\Http\Controllers\RecordController::class, 'edit'])->name('records.edit');
     Route::put('/records/{record}', [\App\Http\Controllers\RecordController::class, 'update'])->name('records.update');
-    Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'push'])->name('records.push');
+    Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'pushToQueue'])->name('records.push');
 });
 
 require __DIR__.'/auth.php';
