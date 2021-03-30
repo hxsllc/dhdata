@@ -16,10 +16,10 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link :href="route('records.index')" :active="request()->routeIs('records')">
-                        {{ __('Source Data') }}
+                        {{ __('SLU Catalog') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('queue.index')" :active="request()->routeIs('queue')">
-                        {{ __('Web Queue') }}
+                    <x-nav-link :href="route('import.index')" :active="request()->routeIs('queue')">
+                        {{ __('Web Import') }}
                     </x-nav-link>
                 </div>
             </div>

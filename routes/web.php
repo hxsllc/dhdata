@@ -27,9 +27,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/records/{record}', [\App\Http\Controllers\RecordController::class, 'update'])->name('records.update');
     Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'pushToQueue'])->name('records.push');
 
-    Route::get('/web-queue', [\App\Http\Controllers\WebQueueController::class, 'index'])->name('queue.index');
-    Route::get('/web-queue/{record}/edit', [\App\Http\Controllers\WebQueueController::class, 'edit'])->name('queue.edit');
-    Route::put('/web-queue/{record}', [\App\Http\Controllers\WebQueueController::class, 'update'])->name('queue.update');
+    Route::get('/web-import', [\App\Http\Controllers\WebImportController::class, 'index'])->name('import.index');
+    Route::get('/web-import/{record}/edit', [\App\Http\Controllers\WebImportController::class, 'edit'])->name('import.edit');
+    Route::put('/web-import/{record}', [\App\Http\Controllers\WebImportController::class, 'update'])->name('import.update');
 });
 
 require __DIR__.'/auth.php';

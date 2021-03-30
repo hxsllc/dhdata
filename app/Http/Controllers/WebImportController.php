@@ -7,7 +7,7 @@ use App\Models\WebRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class WebQueueController extends Controller
+class WebImportController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,7 +31,7 @@ class WebQueueController extends Controller
             $records = $records->where('int_part', 'LIKE', '%'.$part.'%');
         }
 
-        return view('webqueue.index', [
+        return view('webimport.index', [
             'records' => $records->where('published', 0)->paginate(25),
             'collections' => DB::connection('mysql')
                                     ->table('metadata_web')
@@ -48,7 +48,7 @@ class WebQueueController extends Controller
      */
     public function edit(WebRecord $record)
     {
-        return view('webqueue.edit', [
+        return view('webimport.edit', [
             'record' => $record
         ]);
     }

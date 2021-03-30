@@ -34,9 +34,9 @@
                     </div>
                 @endif
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <a href="{{ route('records.create') }}" class="inline-flex items-center px-4 py-2 mb-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    {{--<a href="{{ route('records.create') }}" class="inline-flex items-center px-4 py-2 mb-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {{ __('Add Record') }}
-                    </a>
+                    </a>--}}
                     <div class="flex flex-col">
                         <div class="-my-2 sm:-mx-6 lg:-mx-8">
                             <div class="py-2 align-middle sm:px-6 lg:px-8">
@@ -53,7 +53,7 @@
                                                     @foreach($collections as $collection)
                                                         @if(! empty($collection->mCollection))
                                                             <option value="{{ $collection->mCollection }}"
-                                                                @if(request('shelfmark') == $collection->mCollection) selected @endif>
+                                                                @if(request('shelfmark') == $collection) selected @endif>
                                                                 {{ $collection->mCollection }}
                                                             </option>
                                                         @endif
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="sm:col-span-1">
                                             <div>
-                                                <label for="codex" class="sr-only">Codex (Old)</label>
+                                                <label for="codex" class="sr-only">Codex</label>
                                                 <div class="">
                                                     <input type="text"
                                                            name="codex"
@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="sm:col-span-1">
                                             <div>
-                                                <label for="roll" class="sr-only">Codex (Old)</label>
+                                                <label for="roll" class="sr-only">Roll</label>
                                                 <div class="">
                                                     <input type="text"
                                                            name="roll"
@@ -89,13 +89,13 @@
                                         </div>
                                         <div class="sm:col-span-1">
                                             <div>
-                                                <label for="updated" class="sr-only">Codex (Old)</label>
+                                                <label for="part" class="sr-only">Part</label>
                                                 <div class="">
                                                     <input type="text"
-                                                           name="updated"
-                                                           id="updated"
-                                                           placeholder="Updated By"
-                                                           value="{{ request('updated') }}"
+                                                           name="part"
+                                                           id="part"
+                                                           placeholder="Part"
+                                                           value="{{ request('part') }}"
                                                            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                                 </div>
                                             </div>
@@ -117,13 +117,13 @@
                                                 {{ __('Manuscript') }}
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {{ __('Codex (New)') }}
+                                                {{ __('Roll') }}
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {{ __('Roll (New)') }}
+                                                {{ __('Part(s)') }}
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                {{ __('Part (New)') }}
+                                                {{ __('METAscripta ID') }}
                                             </th>
                                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                 {{ __('Digitized') }}
@@ -138,26 +138,26 @@
                                             <tr class="bg-white">
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                                                     <p class="font-bold">
-                                                        {{ $record->mCollection }}, {{ $record->mCodexNumberOld }}
+                                                        {{ $record->shelfmark }}, {{ $record->codex }}
                                                     </p>
                                                     <p>
-                                                        {{ $record->mCity }}, {{ $record->mRepository }}
-                                                    </p>
-                                                    <p>
-                                                        {{ __('Service Copy #:') }} {{ $record->rServiceCopyNumber }}
+                                                        {{ $record->country }}, {{ $record->century }}
                                                     </p>
                                                     <p class="italic">
-                                                        {{ $record->lastUpdatedBy }}
+                                                        {{ $record->reference }}
                                                     </p>
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    {{ $record->mCodexNumberNew }}
-                                                </td>
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
-                                                    {{ $record->rMasterNegNumber }}
+                                                    {{--<p class="italic">
+                                                        {{ $record->lastUpdatedBy }}
+                                                    </p>--}}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
-                                                    {{ $record->mQualifier }}
+                                                    {{ $record->int_roll }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
+                                                    {{ $record->int_part }}
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 capitalize">
+                                                    {{ $record->metascripta_id }}
                                                 </td>
                                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                                     {{ ($record->mDateDigitized != '0000-00-00' ? $record->mDateDigitized : '' ) }}

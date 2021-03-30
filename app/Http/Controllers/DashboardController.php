@@ -16,7 +16,19 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
         return view('dashboard', [
-            'record_count' => Record::count()
+            'record_count' => Record::count(),
+            'cataloged' => Record::whereNotNull('mCentury')
+                                    ->whereNotNull('mCountry')
+                                    ->whereNotNull('mLanguage')
+                                    ->whereNotNull('mTextReference')
+                                    ->count(),
+            'digitized' => Record::whereNotNull('mCentury')
+                                    ->whereNotNull('mCountry')
+                                    ->whereNotNull('mLanguage')
+                                    ->whereNotNull('mTextReference')
+                                    ->whereNotNull('mTextReference')
+                                    ->whereNotNull('mDateDigitized')
+                                    ->count(),
         ]);
     }
 }

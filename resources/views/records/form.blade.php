@@ -125,6 +125,19 @@
 </div>
 
 <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
+    <div class="sm:col-span-3">
+        <div>
+            <label for="mFolderNumber" class="block text-sm font-medium text-gray-700">VFL Identifier</label>
+            <div class="">
+                <input type="text"
+                       name="mFolderNumber"
+                       id="mFolderNumber"
+                       placeholder="{{ $record->calulated_identifier }}"
+                       value="{{ $record->mFolderNumber }}"
+                       class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+    </div>
     <div class="sm:col-span-1">
         <div>
             <label for="mCountry" class="block text-sm font-medium text-gray-700">Country</label>
@@ -197,19 +210,6 @@
     </div>
 
     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
-        <div class="sm:col-span-1">
-            <div>
-                <label for="mFolderNumber" class="block text-sm font-medium text-gray-700">VFL Identifier</label>
-                <div class="">
-                    <input type="text"
-                           name="mFolderNumber"
-                           id="mFolderNumber"
-                           placeholder=""
-                           value="{{ $record->mFolderNumber }}"
-                           class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                </div>
-            </div>
-        </div>
         <div class="sm:col-span-1">
             <div>
                 <label for="mDateDigitized" class="block text-sm font-medium text-gray-700">Date Digitized</label>

@@ -16,7 +16,7 @@
                             >
                                 <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                                     <div class="py-4">
-                                        SLU DATA<br />(SQL)
+                                        SLU Catalog<br /><br />
                                     </div>
                                     <div class="border-t border-b border-gray-400 py-2">
                                         <div class="order-1 text-5xl font-extrabold text-gray-600">
@@ -33,27 +33,26 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="{{ route('queue.index') }}"
+                            <a href="{{ route('import.index') }}"
                                class="hover:bg-gray-200"
                             >
                                 <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                                     <div class="py-4">
-                                        WEB QUEUE<br />(PRE-PUBLICATION)
+                                        CATALOGED<br />(PRE-PUBLICATION)
                                     </div>
                                     <div class="border-t border-b border-gray-400 py-2">
                                         <div class="order-1 text-5xl font-extrabold text-gray-600">
-                                            {{--{{ number_format( $record_count, 0, '.', ',' ) }}--}}
-                                            --
+                                            {{ number_format( $cataloged, 0, '.', ',' ) }}
                                         </div>
                                         <div class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500 ">
-                                            records in "queue"
+                                            records cataloged
                                         </div>
                                     </div>
-                                    <div class="py-4">
+                                    {{--<div class="py-4">
                                         <p>Metadata</p>
                                         <p>JP2 conversion</p>
                                         <p>IIIF & Mirador</p>
-                                    </div>
+                                    </div>--}}
                                 </div>
                             </a>
                             <a href="{{ route('records.index') }}"
@@ -61,7 +60,28 @@
                             >
                                 <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
                                     <div class="py-4">
-                                        WEB CATALOG<br />(OMEKA)
+                                        DIGITIZED<br /><br />
+                                    </div>
+                                    <div class="border-t border-b border-gray-400 py-2">
+                                        <div class="order-1 text-5xl font-extrabold text-gray-600">
+                                            {{ number_format( $digitized, 0, '.', ',' ) }}
+                                        </div>
+                                        <div class="order-2 mt-2 text-lg leading-6 font-medium text-gray-500 ">
+                                            records digitized
+                                        </div>
+                                    </div>
+                                    {{--<div class="py-4">
+                                        <p>Omeka item</p>
+                                        <p>IIIF manifest</p>
+                                    </div>--}}
+                                </div>
+                            </a>
+                            <a href="{{ route('records.index') }}"
+                               class="hover:bg-gray-200"
+                            >
+                                <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                                    <div class="py-4">
+                                        PUBLISHED<br />(OMEKA)
                                     </div>
                                     <div class="border-t border-b border-gray-400 py-2">
                                         <div class="order-1 text-5xl font-extrabold text-gray-600">
@@ -78,7 +98,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="http://metascripta.org/manager/db"
+                            {{--<a href="http://metascripta.org/manager/db"
                                class="hover:bg-gray-200"
                                target="_blank"
                             >
@@ -100,7 +120,7 @@
                                         <p>slu_sql</p>
                                     </div>
                                 </div>
-                            </a>
+                            </a>--}}
                         </div>
                     </div>
                 </div>
