@@ -132,7 +132,7 @@
                 <input type="text"
                        name="mFolderNumber"
                        id="mFolderNumber"
-                       placeholder="{{ $record->calulated_identifier }}"
+                       placeholder="e.g. {{ $record->calulated_identifier }}"
                        value="{{ $record->mFolderNumber }}"
                        class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
             </div>
@@ -179,7 +179,7 @@
     </div>
     <div class="sm:col-span-3">
         <div>
-            <label for="mTextReference" class="block text-sm font-medium text-gray-700">Bilbiographic Reference</label>
+            <label for="mTextReference" class="block text-sm font-medium text-gray-700">Bibliographic Reference</label>
             <div class="">
                 <input type="text"
                        name="mTextReference"
@@ -187,6 +187,18 @@
                        placeholder=""
                        value="{{ $record->mTextReference }}"
                        class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+            </div>
+        </div>
+    </div>
+    <div class="sm:col-span-3">
+        <div>
+            <label for="mNotes" class="block text-sm font-medium text-gray-700">Manuscript Notes</label>
+            <div class="">
+                <textarea name="mNotes"
+                          id="mNotes"
+                          placeholder=""
+                          rows="2"
+                          class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">{{ $record->mNotes }}</textarea>
             </div>
         </div>
     </div>
@@ -198,18 +210,34 @@
             <div class="w-full border-t border-gray-300"></div>
         </div>
         <div class="relative flex items-center justify-start">
-                                                    <span class="bg-white px-2 text-gray-500">
-                                                      <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                        <path fill="#6B7280" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                                                      </svg>
-                                                    </span>
-            <span class="pr-3 bg-white text-lg font-medium text-gray-900">
-                                                        Digitization Information
-                                                    </span>
+            <span class="bg-white px-2 text-gray-500">
+              <svg class="h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path fill="#6B7280" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+              </svg>
+            </span>
+    <span class="pr-3 bg-white text-lg font-medium text-gray-900">
+                Digitization Information
+            </span>
         </div>
     </div>
 
     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
+        <div class="sm:col-span-1">
+            <div>
+                <label for="mFolderNumber" class="block text-sm font-medium text-gray-700">VFL Identifier</label>
+                <div class="">
+                    <input type="text"
+                           name="mFolderNumber"
+                           id="mFolderNumber"
+                           placeholder="e.g. {{ $record->calulated_identifier }}"
+                           value="{{ $record->mFolderNumber }}"
+                           class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                        @if(empty($record->old_codex) || empty($record->part))
+                            <p class="mt-2 text-sm text-red-700">Not enough information to calculate an identifier. Please fill out Codex (New) and Part.</p>
+                        @endif
+                </div>
+            </div>
+        </div>
         <div class="sm:col-span-1">
             <div>
                 <label for="mDateDigitized" class="block text-sm font-medium text-gray-700">Date Digitized</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
 use App\Models\Record;
 use App\Models\WebRecord;
 use Illuminate\Http\Request;
@@ -19,6 +20,16 @@ class RecordController extends Controller
     {
         $records = new Record;
 
+        if($cataloged = request('cataloged')){
+            if($cataloged == 'true'){
+                $records = $records->cataloged();
+            }
+        }
+        if($digitized = request('digitized')){
+            if($digitized == 'true'){
+                $records = $records->digitized();
+            }
+        }
         if($collection = request('shelfmark')){
             $records = $records->where('mCollection', 'LIKE', '%'.$collection.'%');
         }
@@ -34,11 +45,8 @@ class RecordController extends Controller
 
         return view('records.index', [
             'records' => $records->orderBy('lastUpdatedOn', 'DESC')->paginate(25),
-            'collections' => DB::connection('slu')
-                                    ->table('SLU_SQL')
-                                    ->select(DB::raw('DISTINCT mCollection'))
-                                    ->orderBy('mCollection')
-                                    ->get(),
+            'collections' => Collection::orderBy('name')
+                                        ->get(),
         ]);
     }
 
@@ -74,6 +82,7 @@ class RecordController extends Controller
             'mSubCollection02',
             'mSubCollection03',
             'rNotes',
+            'mNotes',
             'rServiceCopyNumber',
             'rMasterNegNumber',
             'mCodexNumberOld',
@@ -129,6 +138,7 @@ class RecordController extends Controller
             'mSubCollection02',
             'mSubCollection03',
             'rNotes',
+            'mNotes',
             'rMasterNegNumber',
             'mCodexNumberNew',
             'mQualifier',

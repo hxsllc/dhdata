@@ -51,12 +51,10 @@
                                                         class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                                     <option value="">All Collections</option>
                                                     @foreach($collections as $collection)
-                                                        @if(! empty($collection->mCollection))
-                                                            <option value="{{ $collection->mCollection }}"
-                                                                @if(request('shelfmark') == $collection) selected @endif>
-                                                                {{ $collection->mCollection }}
-                                                            </option>
-                                                        @endif
+                                                        <option value="{{ $collection->name }}"
+                                                                @if(request('shelfmark') == $collection->name) selected @endif>
+                                                            {{ $collection->name }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>

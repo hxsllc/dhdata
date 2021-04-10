@@ -80,7 +80,7 @@
                                                                 Current Version Edited by: {{ $record->lastUpdatedBy }}
                                                             </th>
                                                             <th scope="col" class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                                                Edited on: {{ $record->lastUpdatedOn->timezone('America/New_York')->toDateTimeString() }}
+                                                                Edited on: @if(! empty($record->lastUpdatedOn)) {{ $record->lastUpdatedOn->timezone('America/New_York')->toDateTimeString() }} @endif
                                                             </th>
                                                         </tr>
                                                         </thead>
@@ -91,7 +91,7 @@
                                                                     {{ $key }}
                                                                 </td>
                                                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                                    @if($key == 'lastUpdatedOn')
+                                                                    @if($key == 'lastUpdatedOn' && ! empty($attribute))
                                                                         {{ (new \Carbon\Carbon($attribute))->timezone('America/New_York')->toDateTimeString() }}
                                                                     @else
                                                                         {{ $attribute }}

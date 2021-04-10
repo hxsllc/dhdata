@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Collection;
 use App\Models\Record;
 use App\Models\WebRecord;
 use Illuminate\Http\Request;
@@ -33,11 +34,8 @@ class WebImportController extends Controller
 
         return view('webimport.index', [
             'records' => $records->where('published', 0)->paginate(25),
-            'collections' => DB::connection('mysql')
-                                    ->table('metadata_web')
-                                    ->select(DB::raw('DISTINCT shelfmark'))
-                                    ->orderBy('shelfmark')
-                                    ->get(),
+            'collections' => Collection::orderBy('name')
+                                        ->get(),
         ]);
     }
     /**

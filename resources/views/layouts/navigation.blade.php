@@ -41,9 +41,12 @@
 
                     <x-slot name="content">
                         @if(Auth::user()->hasRole('admin'))
-                        <x-dropdown-link :href="route('users.index')">
-                            {{ __('Users') }}
-                        </x-dropdown-link>
+                            <x-dropdown-link :href="route('collections.index')">
+                                {{ __('Collections') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('users.index')">
+                                {{ __('Users') }}
+                            </x-dropdown-link>
                         @endif
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

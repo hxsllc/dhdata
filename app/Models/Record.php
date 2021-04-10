@@ -47,9 +47,9 @@ class Record extends Model
 
     public function getPartAttribute()
     {
-        if(! array_key_exists('qualifier_is_edited', $this->attributes)){
+        /*if(! array_key_exists('qualifier_is_edited', $this->attributes)){
             return '';
-        }
+        }*/
         $this->attributes['qualifier_is_edited'] = false;
         $qualifier = Str::of($this->attributes['mQualifier'])->trim();
         if($qualifier->isNotEmpty()){
@@ -75,9 +75,43 @@ class Record extends Model
         return $this->mapCollection() . '_' . $this->old_codex . '_01';
     }
 
+    public function isCataloged()
+    {
+        return ! empty($this->mCentury)
+            && ! empty($this->mCountry)
+            && ! empty($this->mLanguage)
+            && ! empty($this->mTextReference);
+    }
+
+    public function isDigitized()
+    {
+        return $this->isCataloged()
+            && ! empty($this->mDateDigitized)
+            && $this->mDateDigitized != '0000-00-00'
+            && ! empty($this->mFolderNumber);
+    }
+
+    public function scopeCataloged($query)
+    {
+        return $query->whereNotNull('mCentury')->where('mCentury', '<>', '')
+                    ->whereNotNull('mCountry')->where('mCountry', '<>', '')
+                    ->whereNotNull('mLanguage')->where('mLanguage', '<>', '')
+                    ->whereNotNull('mTextReference')->where('mTextReference', '<>', '');
+    }
+
+    public function scopeDigitized($query)
+    {
+        return $query->cataloged()
+                    ->whereNotNull('mDateDigitized')
+                    ->where('mDateDigitized', '<>', 0)
+                    ->whereNotNull('mFolderNumber')
+                    ->where('mFolderNumber', '<>', '');
+    }
+
     private function mapCollection()
     {
-        switch(trim($this->mCollection)){
+        return optional(Collection::whereName(trim($this->mCollection))->first())->acronym;
+        /*switch(trim($this->mCollection)){
             case 'Arch. Cap. S. Pietro':
                 return 'AP[+]';
             case 'Barb. gr.':
@@ -152,7 +186,7 @@ class Record extends Model
                 return 'VTL';
             case 'Vat. sir.':
                 return 'VTS';
-        }
+        }*/
     }
 
 }
