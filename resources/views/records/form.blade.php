@@ -232,7 +232,7 @@
                            placeholder="e.g. {{ $record->calulated_identifier }}"
                            value="{{ $record->mFolderNumber }}"
                            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-                        @if(empty($record->old_codex) || empty($record->part))
+                        @if(empty($record->mCodexNumberNew) || empty($record->mQualifier))
                             <p class="mt-2 text-sm text-red-700">Not enough information to calculate an identifier. Please fill out Codex (New) and Part.</p>
                         @endif
                 </div>
