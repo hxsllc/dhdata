@@ -17,17 +17,9 @@ class DashboardController extends Controller
     {
         return view('dashboard', [
             'record_count' => Record::count(),
-            'cataloged' => Record::whereNotNull('mCentury')
-                                    ->whereNotNull('mCountry')
-                                    ->whereNotNull('mLanguage')
-                                    ->whereNotNull('mTextReference')
+            'cataloged' => Record::cataloged()
                                     ->count(),
-            'digitized' => Record::whereNotNull('mCentury')
-                                    ->whereNotNull('mCountry')
-                                    ->whereNotNull('mLanguage')
-                                    ->whereNotNull('mTextReference')
-                                    ->whereNotNull('mTextReference')
-                                    ->whereNotNull('mDateDigitized')
+            'digitized' => Record::digitized()
                                     ->count(),
         ]);
     }
