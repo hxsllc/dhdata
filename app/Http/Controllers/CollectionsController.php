@@ -42,6 +42,7 @@ class CollectionsController extends Controller
     {
         $collection = new Collection;
         $collection->fill($request->only(['name', 'acronym']));
+        $collection->auto_calculate = $request->get('auto_calculate', 0);
         $collection->save();
 
         return redirect()->route('collections.index');
@@ -71,6 +72,7 @@ class CollectionsController extends Controller
     public function update(Request $request, Collection $collection)
     {
         $collection->fill($request->only(['name', 'acronym']));
+        $collection->auto_calculate = $request->get('auto_calculate', 0);
         $collection->save();
 
         return redirect()->route('collections.index');

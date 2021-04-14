@@ -119,25 +119,15 @@
                        placeholder="01"
                        value="{{ $record->part }}"
                        class="py-3 px-4 block w-full shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500  border-gray-300 rounded-md @if($record->qualifier_is_edited == true) bg-indigo-100 @endif">
+                @if($record->qualifier_is_default == true)
+                    <p class="mt-2 text-sm text-red-700">Default is 01, but please check!</p>
+                @endif
             </div>
         </div>
     </div>
 </div>
 
 <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8 my-4">
-    <div class="sm:col-span-3">
-        <div>
-            <label for="mFolderNumber" class="block text-sm font-medium text-gray-700">VFL Identifier</label>
-            <div class="">
-                <input type="text"
-                       name="mFolderNumber"
-                       id="mFolderNumber"
-                       placeholder="e.g. {{ $record->calulated_identifier }}"
-                       value="{{ $record->mFolderNumber }}"
-                       class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
-            </div>
-        </div>
-    </div>
     <div class="sm:col-span-1">
         <div>
             <label for="mCountry" class="block text-sm font-medium text-gray-700">Country</label>

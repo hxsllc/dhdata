@@ -35,6 +35,7 @@ Route::group(['middleware' => ['auth']], function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'admin'])->group(function() {
-    Route::resource('/users', \App\Http\Controllers\UserController::class);
     Route::resource('/collections', \App\Http\Controllers\CollectionsController::class);
+    Route::get('/reports', [\App\Http\Controllers\ReportController::class, 'quality'])->name('reports.quality');
+    Route::resource('/users', \App\Http\Controllers\UserController::class);
 });

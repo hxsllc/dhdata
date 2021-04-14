@@ -39,6 +39,8 @@ class Record extends Model
     {
         if(! array_key_exists('mCodexNumberOld', $this->attributes)){
             return '';
+        }else if(! empty($this->attributes['mCodexNumberNew'])){
+            return $this->attributes['mCodexNumberNew'];
         }
         return Str::of($this->attributes['mCodexNumberOld'])
                     ->replaceMatches('/\([0-9]++\)/', '')
@@ -47,11 +49,15 @@ class Record extends Model
 
     public function getPartAttribute()
     {
-        /*if(! array_key_exists('qualifier_is_edited', $this->attributes)){
-            return '';
-        }*/
-        $this->attributes['qualifier_is_edited'] = false;
         $qualifier = Str::of($this->attributes['mQualifier'])->trim();
+        // Check it the mQualifier is empty. If so, set default to 01 and show warning
+        if($qualifier->isEmpty()){
+            $this->attributes['qualifier_is_edited'] = true;
+            $this->attributes['qualifier_is_default'] = true;
+            return '01';
+        }
+        $this->attributes['qualifier_is_edited'] = false;
+        // If mQualifier i snot empty, check if it's a single digit and padd with 0's
         if($qualifier->isNotEmpty()){
             if($qualifier->match('/[1-9]/')){
                 $this->attributes['qualifier_is_edited'] = true;
@@ -60,7 +66,7 @@ class Record extends Model
                 return $this->attributes['mQualifier'];
             }
         }
-
+        // Currently this will never be reached but the idea was to extract the number part, pad it, and then return
         $part = Str::of($this->attributes['mCodexNumberOld'])->match('/\([0-9]++\)/');
         if($part->trim()->isNotEmpty()){
             $this->attributes['qualifier_is_edited'] = true;

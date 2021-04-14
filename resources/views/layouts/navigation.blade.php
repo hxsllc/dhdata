@@ -44,6 +44,9 @@
                             <x-dropdown-link :href="route('collections.index')">
                                 {{ __('Collections') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('reports.quality')">
+                                {{ __('QC Report') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('users.index')">
                                 {{ __('Users') }}
                             </x-dropdown-link>
