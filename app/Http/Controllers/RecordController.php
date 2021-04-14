@@ -120,7 +120,8 @@ class RecordController extends Controller
     public function edit(Record $record)
     {
         return view('records.edit', [
-            'record' => $record
+            'record' => $record,
+            'collections' => Collection::all(),
         ]);
     }
 

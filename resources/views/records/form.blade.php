@@ -219,7 +219,7 @@
                     <input type="text"
                            name="mFolderNumber"
                            id="mFolderNumber"
-                           placeholder="e.g. {{ $record->calulated_identifier }}"
+                           @if(in_array($record->mCollection, $collections->where('auto_calculate', 1)->pluck('name')->all())) placeholder="e.g. {{ $record->calulated_identifier }}" @endif
                            value="{{ $record->mFolderNumber }}"
                            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                         @if(empty($record->mCodexNumberNew) || empty($record->mQualifier))
