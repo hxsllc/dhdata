@@ -76,7 +76,7 @@
                        id="rMasterNegNumber"
                        placeholder=""
                        value="{{ $record->roll  }}"
-                       class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md @if($record->exists) bg-indigo-100 @endif">
+                       class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md @if($record->roll_is_edited) bg-indigo-100 @endif">
             </div>
         </div>
     </div>
@@ -105,7 +105,7 @@
                        id="mCodexNumberNew"
                        placeholder=""
                        value="{{ $record->old_codex }}"
-                       class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md @if($record->exists) bg-indigo-100 @endif">
+                       class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md @if($record->qualifier_is_edited && $record->should_auto_calculate) bg-indigo-100 @endif">
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@
                        id="mQualifier"
                        placeholder="01"
                        value="{{ $record->part }}"
-                       class="py-3 px-4 block w-full shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500  border-gray-300 rounded-md @if($record->qualifier_is_edited == true) bg-indigo-100 @endif">
+                       class="py-3 px-4 block w-full shadow-sm placeholder-gray-400 focus:ring-indigo-500 focus:border-indigo-500  border-gray-300 rounded-md @if($record->qualifier_is_edited) bg-indigo-100 @endif">
                 @if($record->qualifier_is_default == true)
                     <p class="mt-2 text-sm text-red-700">Default is 01, but please check!</p>
                 @endif

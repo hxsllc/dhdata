@@ -59,11 +59,8 @@ class RecordController extends Controller
     {
         return view('records.create', [
             'record' => new Record(),
-            'collections' => DB::connection('slu')
-                ->table('SLU_SQL')
-                ->select(DB::raw('DISTINCT mCollection'))
-                ->orderBy('mCollection')
-                ->get(),
+            'collections' => Collection::orderBy('name')
+                                         ->get(),
         ]);
     }
 

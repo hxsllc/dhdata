@@ -138,7 +138,25 @@
                                 </div>
 
                                 <div class="top-pagination py-2 align-middle inline-block min-w-full sm:px-6 lg:px-2">
-                                    {!! $records->links() !!}
+                                    @if($records->total() > 25)
+                                        {!! $records->links() !!}
+                                    @else
+                                        <nav role="navigation" aria-label="Pagination Navigation" class="flex items-center justify-between">
+                                            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                                                <div>
+                                                    <p class="text-sm text-gray-700 leading-5">
+                                                        Showing
+                                                        <span class="font-medium">1</span>
+                                                        to
+                                                        <span class="font-medium">{{ $records->count() }}</span>
+                                                        of
+                                                        <span class="font-medium">{{ $records->count() }}</span>
+                                                        results
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </nav>
+                                    @endif
                                 </div>
 
                                 <div class="shadow overflow-visible border-b border-gray-200 sm:rounded-lg">

@@ -31,13 +31,17 @@ class Record extends Model
         if(! array_key_exists('rServiceCopyNumber', $this->attributes)){
             return '';
         }
+        if(! empty($this->rMasterNegNumber)){
+            return $this->rMasterNegNumber;
+        }
+        $this->attributes['roll_is_edited'] = true;
         return Str::of($this->attributes['rServiceCopyNumber'])
                     ->padLeft(5, '0');
     }
 
     public function getOldCodexAttribute()
     {
-        if(! array_key_exists('mCodexNumberOld', $this->attributes)){
+        if(! $this->should_auto_calculate || ! array_key_exists('mCodexNumberOld', $this->attributes)){
             return '';
         }else if(! empty($this->attributes['mCodexNumberNew'])){
             return $this->attributes['mCodexNumberNew'];
@@ -49,6 +53,14 @@ class Record extends Model
 
     public function getPartAttribute()
     {
+        if(! $this->should_auto_calculate){
+            return '';
+        }
+        if(! array_key_exists('mQualifier', $this->attributes)){
+            $this->attributes['qualifier_is_edited'] = true;
+            $this->attributes['qualifier_is_default'] = true;
+            return '01';
+        }
         $qualifier = Str::of($this->attributes['mQualifier'])->trim();
         // Check it the mQualifier is empty. If so, set default to 01 and show warning
         if($qualifier->isEmpty()){
@@ -57,13 +69,13 @@ class Record extends Model
             return '01';
         }
         $this->attributes['qualifier_is_edited'] = false;
-        // If mQualifier i snot empty, check if it's a single digit and padd with 0's
+        // If mQualifier i snot empty, check if it's a single digit and pad with 0's
         if($qualifier->isNotEmpty()){
-            if($qualifier->match('/[1-9]/')){
+            if($qualifier->length() < 2 && $qualifier->match('/[1-9]/')){
                 $this->attributes['qualifier_is_edited'] = true;
                 return $qualifier->padLeft(2, '0');
             }else{
-                return $this->attributes['mQualifier'];
+                return $qualifier;
             }
         }
         // Currently this will never be reached but the idea was to extract the number part, pad it, and then return
@@ -74,6 +86,11 @@ class Record extends Model
         }else{
             return '';
         }
+    }
+
+    public function getShouldAutoCalculateAttribute()
+    {
+        return in_array($this->mCollection, Collection::where('auto_calculate', 1)->pluck('name')->all());
     }
 
     public function getCalulatedIdentifierAttribute()

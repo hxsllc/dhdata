@@ -41,11 +41,9 @@
                                                             required>
                                                         <option value="">-- Select Collection --</option>
                                                         @foreach($collections as $collection)
-                                                            @if(! empty($collection->mCollection))
-                                                                <option value="{{ $collection->mCollection }}">
-                                                                    {{ $collection->mCollection }}
-                                                                </option>
-                                                            @endif
+                                                            <option value="{{ $collection->name }}">
+                                                                {{ $collection->name }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>

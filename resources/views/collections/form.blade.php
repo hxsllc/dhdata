@@ -31,7 +31,7 @@
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
             <div>
                 <div class="text-base font-medium text-gray-900 sm:text-sm sm:text-gray-700" id="label-email">
-                    Auto Calculate
+                    {{ __('Auto-Suggest') }}
                 </div>
             </div>
             <div class="mt-4 sm:mt-0 sm:col-span-2">
