@@ -46,6 +46,7 @@ class Record extends Model
         }else if(! empty($this->attributes['mCodexNumberNew'])){
             return $this->attributes['mCodexNumberNew'];
         }
+        $this->attributes['new_codex_is_edited'] = true;
         return Str::of($this->attributes['mCodexNumberOld'])
                     ->replaceMatches('/\([0-9]++\)/', '')
                     ->padLeft(5, '0');
