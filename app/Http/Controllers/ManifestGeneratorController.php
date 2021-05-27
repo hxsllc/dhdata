@@ -98,8 +98,8 @@ class ManifestGeneratorController extends Controller
                         "@id" => "https://metascripta.org/iiif/". $image->metascripta_id . "/" . ($key + 1),
                         "@type" => "sc:Canvas",
                         "label" => $image->metascripta_id . "_" .  $image->frame,
-                        "width" => $image->width,
-                        "height" => $image->height,
+                        "width" => intval($image->width),
+                        "height" => intval($image->height),
                         "images" => [
                             [
                                 "@id" => "https://IMAGE_ID_" . ($key + 1),
@@ -109,8 +109,8 @@ class ManifestGeneratorController extends Controller
                                     "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $image->metascripta_id  . "_" . $image->frame . "." . $image->format,
                                     "@type" => "dctypes:Image",
                                     "format" => "image/jpeg",
-                                    "width" => $image->width,
-                                    "height" => $image->height,
+                                    "width" => intval($image->width),
+                                    "height" => intval($image->height),
                                     "service" => [
                                         "@context" => "http://iiif.io/api/image/2/context.json",
                                         "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $image->metascripta_id  . "/" . $image->frame . "." . $image->format,
