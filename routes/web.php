@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/web-import', [\App\Http\Controllers\WebImportController::class, 'index'])->name('import.index');
     Route::get('/web-import/{record}/edit', [\App\Http\Controllers\WebImportController::class, 'edit'])->name('import.edit');
     Route::put('/web-import/{record}', [\App\Http\Controllers\WebImportController::class, 'update'])->name('import.update');
+
+    Route::get('/manifest/{identifier}', \App\Http\Controllers\ManifestGeneratorController::class)->name('manifest.generate');
 });
 
 require __DIR__.'/auth.php';

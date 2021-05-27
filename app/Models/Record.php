@@ -26,6 +26,11 @@ class Record extends Model
         'id',
     ];
 
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'metascripta_id', 'mFolderNumber');
+    }
+
     public function getRollAttribute()
     {
         if(! array_key_exists('rServiceCopyNumber', $this->attributes)){
