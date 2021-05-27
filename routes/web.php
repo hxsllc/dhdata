@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', \App\Http\Controllers\DashboardController::class)->middleware(['auth'])->name('dashboard');
+Route::get('/manifest/{identifier}', \App\Http\Controllers\ManifestGeneratorController::class)->name('manifest.generate');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index'])->name('records.index');
@@ -31,7 +32,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/web-import/{record}/edit', [\App\Http\Controllers\WebImportController::class, 'edit'])->name('import.edit');
     Route::put('/web-import/{record}', [\App\Http\Controllers\WebImportController::class, 'update'])->name('import.update');
 
-    Route::get('/manifest/{identifier}', \App\Http\Controllers\ManifestGeneratorController::class)->name('manifest.generate');
 });
 
 require __DIR__.'/auth.php';
