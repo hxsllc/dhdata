@@ -52,39 +52,39 @@ class ManifestGeneratorController extends Controller
         $manifest["metadata"] = [
             [
                 "label" => "Shelfmark",
-                "value" => "",
+                "value" => $record->mCollection . " " . $record->mCodexNumberNew,
             ],
             [
                 "label" => "VFL Part",
-                "value" => "",
+                "value" => $record->mQualifier,
             ],
             [
                 "label" => "Century",
-                "value" => "",
+                "value" => $record->mCentury,
             ],
             [
                 "label" => "Country",
-                "value" => "",
+                "value" => $record->mCountry,
             ],
             [
                 "label" => "Language",
-                "value" => "",
+                "value" => $record->mLanguage,
             ],
             [
                 "label" => "Reference",
-                "value" => "",
+                "value" => $record->mTextReference,
             ],
             [
                 "label" => "METAscripta ID",
-                "value" => "",
+                "value" => $record->mFolderNumber,
             ],
             [
                 "label" => "VFL Roll",
-                "value" => "",
+                "value" => $record->rServiceCopyNumber,
             ],
             [
                 "label" => "Date Digitized",
-                "value" => "",
+                "value" => $record->mDateDigitized,
             ],
         ];
 
