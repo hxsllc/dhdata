@@ -90,7 +90,7 @@ class ManifestGeneratorController extends Controller
 
         $manifest["sequences"] = [
             [
-                "@id" => "// TODO: ",
+                "@id" => "https://SEQUENCE_ID_1",
                 "@type" => "sc:Sequence",
                 "label" => "Normal Sequence",
                 "canvases" => $record->images->map(function($image, $key){
