@@ -31,7 +31,7 @@ class ManifestGeneratorController extends Controller
         $manifest["description"] = "Vatican Film Library Manuscript on Microfilm";
         $manifest["attribution"] = "Saint Louis University Libraries";
         $manifest["logo"] = "https://metascripta.org/iiif/metascripta-logo.png";
-        $manifest["structures"] = [];
+        // Removed but present in old generator: $manifest["structures"] = [];
         $manifest["seeAlso"] = [
             "@id" => "https://metascripta.org/document/" . $record->mFolderNumber,
             "format" => "text/html",
@@ -42,10 +42,10 @@ class ManifestGeneratorController extends Controller
             "format" => "application/pdf",
         ];
         $manifest["thumbnail"] = [
-            "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $record->mFolderNumber . "/" . $record->mFolderNumber . "_0002.jp2/full/120,/0/default.jpg",
+            "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $record->mFolderNumber . "%2f" . $record->mFolderNumber . "_0002.jp2/full/120,/0/default.jpg",
             "service" => [
                 "@context" => "http://iiif.io/api/image/2/context.json",
-                "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $record->mFolderNumber . "/" . $record->mFolderNumber . "_0002.jp2/",
+                "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $record->mFolderNumber . "%2f" . $record->mFolderNumber . "_0002.jp2/",
                 "profile" => "http://iiif.io/api/image/2/level1.json",
             ],
         ];
@@ -93,7 +93,7 @@ class ManifestGeneratorController extends Controller
                 "@id" => "https://SEQUENCE_ID_1",
                 "@type" => "sc:Sequence",
                 "label" => "Normal Sequence",
-                "canvases" => $record->images->map(function($image, $key){
+                "canvases" => $record->images->sortBy('frame')->map(function($image, $key){
                     return [
                         "@id" => "https://metascripta.org/iiif/". $image->metascripta_id . "/" . ($key + 1),
                         "@type" => "sc:Canvas",
@@ -106,14 +106,14 @@ class ManifestGeneratorController extends Controller
                                 "@type" => "oa:Annotation",
                                 "motivation" => "sc:painting",
                                 "resource" => [
-                                    "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $image->metascripta_id  . "_" . $image->frame . "." . $image->format,
+                                    "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $image->metascripta_id  . "%2f" . $image->metascripta_id . "_" . $image->frame . "." . $image->format . "/full/full/0/default.jpg",
                                     "@type" => "dctypes:Image",
                                     "format" => "image/jpeg",
                                     "width" => intval($image->width),
                                     "height" => intval($image->height),
                                     "service" => [
                                         "@context" => "http://iiif.io/api/image/2/context.json",
-                                        "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $image->metascripta_id  . "/" . $image->frame . "." . $image->format,
+                                        "@id" => "https://cantaloupe.metascripta.org/iiif/2/". $image->metascripta_id  . "%2f" . $image->metascripta_id . "_" . $image->frame . "." . $image->format,
                                         "profile" => "http://iiif.io/api/image/2/level1.json",
                                     ],
                                 ],
@@ -121,7 +121,7 @@ class ManifestGeneratorController extends Controller
                             ],
                         ],
                     ];
-                })->sortBy('@id')->toArray(),
+                })->values(),
             ]
         ];
 
