@@ -28,7 +28,7 @@ class Record extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class, 'metascripta_id', 'mFolderNumber')->orderBy('id', 'ASC');
+        return $this->hasMany(Image::class, 'metascripta_id', 'mFolderNumber')->orderBy('00JP2Catalog.id', 'ASC');
     }
 
     public function getRollAttribute()
