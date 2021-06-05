@@ -80,7 +80,7 @@ class ManifestGeneratorController extends Controller
             ],
             [
                 "label" => "VFL Roll",
-                "value" => $record->rServiceCopyNumber,
+                "value" => $record->roll,
             ],
             [
                 "label" => "Date Digitized",
@@ -121,7 +121,7 @@ class ManifestGeneratorController extends Controller
                             ],
                         ],
                     ];
-                })->sortBy('@id')->all(),
+                })->sortBy('@id')->toArray(),
             ]
         ];
 
