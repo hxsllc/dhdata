@@ -121,7 +121,7 @@ class ManifestGeneratorController extends Controller
                             ],
                         ],
                     ];
-                })->all(),
+                })->sortBy('@id')->all(),
             ]
         ];
 
