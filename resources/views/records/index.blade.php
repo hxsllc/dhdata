@@ -79,7 +79,7 @@
                                                     <input type="text"
                                                            name="roll"
                                                            id="roll"
-                                                           placeholder="Roll"
+                                                           placeholder="Roll (Old)"
                                                            value="{{ request('roll') }}"
                                                            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                                 </div>

@@ -48,7 +48,7 @@
                                 <div x-show="tab == 'edit'">
                                     <div class="pt-5">
                                         <h3 class="text-lg leading-6 font-bold text-gray-900">
-                                            {{ $record->mCollection }} / {{ $record->mCity }} / {{ $record->mRepository }}
+                                            {{ $record->mCity }} / {{ $record->mRepository }} / {{ $record->mCollection }}
                                         </h3>
                                     </div>
                                     <div class="my-6">

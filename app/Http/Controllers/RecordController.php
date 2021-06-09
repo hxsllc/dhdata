@@ -34,10 +34,10 @@ class RecordController extends Controller
             $records = $records->where('mCollection', 'LIKE', '%'.$collection.'%');
         }
         if($codex = request('codex')){
-            $records = $records->where('mCodexNumberOld', 'LIKE', '%'.$codex.'%');
+            $records = $records->where('mCodexNumberOld', $codex);
         }
         if($roll = request('roll')){
-            $records = $records->where('rServiceCopyNumber', 'LIKE', '%'.$roll.'%');
+            $records = $records->where('rServiceCopyNumber', $roll);
         }
         if($updated = request('updated')){
             $records = $records->where('lastUpdatedBy', 'LIKE', '%'.$updated.'%');
