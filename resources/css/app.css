@@ -5,3 +5,22 @@
 .top-pagination span.relative{
     @apply hidden;
 }
+
+.tempo-header-buttons .tempo-btn.btn-1, .tempo-header-buttons .tempo-btn.btn-2 {
+    background-color: rgba( 56,106,224, 1.00 );
+}
+.tempo-header-buttons .tempo-btn.btn-1:hover, .tempo-header-buttons .tempo-btn.btn-2:hover {
+    background-color: rgba( 181,52,38, 1.00 );
+}
+.tempo-header-buttons .tempo-btn {
+    margin: 5px 10px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border: 0;
+    -webkit-box-shadow: 0 5px 15px 0 rgb(0 0 0 / 18%);
+    -moz-box-shadow: 0 5px 15px 0 rgba(0,0,0,0.18);
+    box-shadow: 0 5px 15px 0 rgb(0 0 0 / 18%);
+}
