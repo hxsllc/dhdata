@@ -33,6 +33,24 @@
                         </div>
                     </div>
                 @endif
+                @if(session()->has('status'))
+                    <!-- This example requires Tailwind CSS v2.0+ -->
+                    <div class="rounded-md bg-green-50 p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <!-- Heroicon name: solid/check-circle -->
+                                <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-green-800">
+                                    {{ session()->get('status') }}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="p-6 bg-white border-b border-gray-200">
                     <a href="{{ route('records.create') }}" class="inline-flex items-center px-4 py-2 mb-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         {{ __('Add Record') }}
@@ -235,6 +253,13 @@
                                                     <a href="{{ route('records.edit', ['record' => $record]) }}" class="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                         {{ _('Edit') }}
                                                     </a>
+                                                    <form action="{{ route('records.export.manifest', ['record' => $record]) }}" method="POST"
+                                                          class="inline-block">
+                                                        @csrf
+                                                        <button type="submit" class="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                                            {{ _('Export Manifest') }}
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

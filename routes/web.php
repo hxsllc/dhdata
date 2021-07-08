@@ -25,6 +25,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/records/create', [\App\Http\Controllers\RecordController::class, 'create'])->name('records.create');
     Route::post('/records', [\App\Http\Controllers\RecordController::class, 'store'])->name('records.store');
     Route::get('/records/{record}/edit', [\App\Http\Controllers\RecordController::class, 'edit'])->name('records.edit');
+    Route::post('/records/{record}/export', [\App\Http\Controllers\RecordController::class, 'exportManifest'])->name('records.export.manifest');
     Route::put('/records/{record}', [\App\Http\Controllers\RecordController::class, 'update'])->name('records.update');
     Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'pushToQueue'])->name('records.push');
 

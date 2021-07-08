@@ -6,6 +6,7 @@ use App\Models\Collection;
 use App\Models\Record;
 use App\Models\WebRecord;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -163,6 +164,16 @@ class RecordController extends Controller
     public function destroy(Record $record)
     {
         //
+    }
+
+
+    public function exportManifest(Record $record)
+    {
+        Artisan::call('manifests:export', [
+            'record' => $record->mFolderNumber,
+        ]);
+
+        return redirect()->back()->with('status', $record->mFolderNumber . '.json manifest generated successfully.');
     }
 
     /**
