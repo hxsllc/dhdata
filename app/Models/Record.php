@@ -18,7 +18,7 @@ class Record extends Model
 
     protected $connection = "slu";
 
-    protected $table = "00SLUCatalog";
+    protected $table = "metadata_source";
 
     protected $versionClass = Version::class;
 
