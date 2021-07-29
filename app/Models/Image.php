@@ -9,7 +9,7 @@ class Image extends Model
 {
     use HasFactory;
 
-    protected $table = "00JP2Catalog";
+    protected $table = "metadata_images";
 
     public function getFrameAttribute()
     {
