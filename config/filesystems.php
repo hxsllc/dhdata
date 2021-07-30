@@ -45,7 +45,7 @@ return [
         'manifests' => [
             'driver' => 'local',
             'root' => '/var/www/html/iiif',
-            'url' => env('APP_URL').'/storage',
+            'url' => 'https://metascripta.org/iiif',
             'visibility' => 'public',
         ],
 

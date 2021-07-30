@@ -15,7 +15,7 @@ class ExportManifests extends Command
      *
      * @var string
      */
-    protected $signature = 'manifests:export {record?}';
+    protected $signature = 'manifests:export {record?} {validate?}';
 
     /**
      * The console command description.
@@ -47,11 +47,41 @@ class ExportManifests extends Command
             $record = $record->where('mFolderNumber', $this->argument('record'));
         }
 
-        $record = $record->whereNotNull('mFolderNumber')->chunk(20, function($records){
+        $manifests = [];
+
+        $record = $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
             foreach($records as $record){
                 $manifest = Record::manifest($record);
                 Storage::disk('manifests')->put('VFL_'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
+                $this->info('Exported: ' . 'VFL_'.$record->mFolderNumber.'.json');
+                $manifests[] = Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json');
             }
         });
+
+        $this->info('Total Manifests Exported: ' . count($manifests));
+
+        if(! empty($this->argument('validate'))) {
+            foreach ($manifests as $manifest) {
+                $this->validateManifest($manifest);
+            }
+        }
+
+    }
+
+    function validateManifest($manifest)
+    {
+        $this->info('Manifest URL: ' . $manifest);
+
+        $response = Http::withOptions([
+            'stream' => true,
+            'version' => '1.0',
+        ])->get('https://iiif.io/api/presentation/validator/service/validate?format=json&version=2.0&url=' . $manifest);
+
+        if($response['okay'] == 1){
+            $this->info('OK');
+        }else{
+            // TODO: save errors to database
+            $this->error('Error: ' . $response['error']);
+        }
     }
 }
