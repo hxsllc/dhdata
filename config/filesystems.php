@@ -44,7 +44,7 @@ return [
 
         'manifests' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => '/var/www/html/iiif',
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
