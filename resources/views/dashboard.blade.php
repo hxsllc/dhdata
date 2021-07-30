@@ -33,7 +33,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="{{ route('import.index') }}"
+                            <a href="{{ route('records.index', ['cataloged' => 'true']) }}"
                                class="hover:bg-gray-200"
                             >
                                 <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
@@ -55,7 +55,7 @@
                                     </div>--}}
                                 </div>
                             </a>
-                            <a href="{{ route('records.index') }}"
+                            <a href="{{ route('records.index', ['digitized' => 'true']) }}"
                                class="hover:bg-gray-200"
                             >
                                 <div class="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">

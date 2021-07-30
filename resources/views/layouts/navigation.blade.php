@@ -18,9 +18,6 @@
                     <x-nav-link :href="route('records.index')" :active="request()->routeIs('records')">
                         {{ __('SLU Catalog') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('import.index')" :active="request()->routeIs('queue')">
-                        {{ __('Web Import') }}
-                    </x-nav-link>
                 </div>
             </div>
 
