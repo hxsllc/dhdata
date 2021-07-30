@@ -173,7 +173,7 @@ class RecordController extends Controller
             'record' => $record->mFolderNumber,
         ]);
 
-        return redirect()->back()->with('status', $record->mFolderNumber . '.json manifest generated successfully.');
+        return redirect()->back()->with('status', 'VLF_' . $record->mFolderNumber . '.json manifest generated successfully.');
     }
 
     /**

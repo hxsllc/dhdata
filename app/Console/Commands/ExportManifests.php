@@ -50,7 +50,7 @@ class ExportManifests extends Command
         $record = $record->whereNotNull('mFolderNumber')->chunk(20, function($records){
             foreach($records as $record){
                 $manifest = Record::manifest($record);
-                Storage::disk('manifests')->put('manifests/'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
+                Storage::disk('manifests')->put('VLF_'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
             }
         });
     }
