@@ -48,6 +48,9 @@
                             <x-dropdown-link :href="route('users.index')">
                                 {{ __('Users') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('export')">
+                                {{ __('Export') }}
+                            </x-dropdown-link>
                         @endif
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

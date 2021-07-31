@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Item;
 use App\Models\Record;
+use App\Models\ValidationErrors;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -72,16 +73,30 @@ class ExportManifests extends Command
     {
         $this->info('Manifest URL: ' . $manifest);
 
-        $response = Http::withOptions([
-            'stream' => true,
-            'version' => '1.0',
-        ])->get('https://iiif.io/api/presentation/validator/service/validate?format=json&version=2.0&url=' . $manifest);
+        try{
+            $response = Http::withOptions([
+                'stream' => true,
+                'version' => '1.0',
+            ])->get('https://iiif.io/api/presentation/validator/service/validate?format=json&version=2.0&url=' . $manifest);
 
-        if($response['okay'] == 1){
-            $this->info('OK');
-        }else{
-            // TODO: save errors to database
-            $this->error('Error: ' . $response['error']);
+            if($response['okay'] == 1){
+                $this->info('OK');
+            }else{
+                // TODO: save errors to database
+                // TODO: should we save valid check when manifest is generated and not recheck?
+                ValidationErrors::create([
+                    'manifest' => $manifest,
+                    'message' => $response['error'],
+                ]);
+                $this->error('Error: ' . $response['error']);
+            }
+        } catch (\Exception $e){
+            ValidationErrors::create([
+                'manifest' => $manifest,
+                'message' => $e->getMessage(),
+            ]);
+            $this->error('Error: ' . $e->getMessage());
         }
+
     }
 }

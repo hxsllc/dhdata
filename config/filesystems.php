@@ -47,6 +47,11 @@ return [
             'root' => '/var/www/html/iiif',
             'url' => 'https://metascripta.org/iiif',
             'visibility' => 'public',
+            'permissions' => [
+                'file' => [
+                    'public' => 0664,
+                ],
+            ],
         ],
 
         's3' => [
