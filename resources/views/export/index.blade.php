@@ -50,7 +50,7 @@
                                         </div>
 
                                         <div class="sm:col-span-1">
-                                            <div class="relative flex items-start">
+                                            <div class="mt-6 relative flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="validate"
                                                            name="validate"
