@@ -49,8 +49,15 @@ class ExportManifests extends Command
             $record = $record->where('mFolderNumber', $this->argument('record'));
         }
 
-        if(! empty($this->argument('period')) && $this->argument('period') != 'all'){
+        if(! empty($this->argument('period'))){
             switch($this->argument('period')){
+                case 'all':
+                    break;
+                case 'errors':
+                    $errors = ValidationErrors::pluck('manifest');
+                    dd($errors);
+                    $record = $record->whereIn('manifest', $errors);
+                    break;
                 case 'day':
                     $record = $record->where(function ($query) {
                         $query->where('lastExportedOn', '<', now()->subHours(24))
@@ -71,9 +78,12 @@ class ExportManifests extends Command
                 $manifest = Record::manifest($record);
                 Storage::disk('manifests')->put('VFL_'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
                 $this->info('Exported: ' . 'VFL_'.$record->mFolderNumber.'.json');
-                $path = Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json');
+                $path = [
+                    'full' => Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json'),
+                    'name' => $record->mFolderNumber,
+                ];
 
-                if(! empty($this->argument('validate'))) {
+                if(! empty($this->argument('validate')) && ($this->argument('validate') == 1 || $this->argument('validate') == true)) {
                     $exported = $this->validateManifest($path);
                 } else {
                     $exported = true;
@@ -93,13 +103,13 @@ class ExportManifests extends Command
     {
         $validated = false;
 
-        $this->info('Manifest URL: ' . $manifest);
+        $this->info('Manifest URL: ' . $manifest['full']);
 
         try{
             $response = Http::withOptions([
                 'stream' => true,
                 'version' => '1.0',
-            ])->get('https://iiif.io/api/presentation/validator/service/validate?format=json&version=2.0&url=' . $manifest);
+            ])->get('https://iiif.io/api/presentation/validator/service/validate?format=json&version=2.0&url=' . $manifest['full']);
 
             if($response['okay'] == 1){
                 $this->info('OK');
@@ -108,14 +118,14 @@ class ExportManifests extends Command
                 // TODO: save errors to database
                 // TODO: should we save valid check when manifest is generated and not recheck?
                 ValidationErrors::create([
-                    'manifest' => $manifest,
+                    'manifest' => $manifest['name'],
                     'message' => 'Validation Error: ' . $response['error'],
                 ]);
                 $this->error('Error: ' . $response['error']);
             }
         } catch (\Exception $e){
             ValidationErrors::create([
-                'manifest' => $manifest,
+                'manifest' => $manifest['name'],
                 'message' => 'Connection Error: ' . $e->getMessage(),
             ]);
             $this->error('Error: ' . $e->getMessage());

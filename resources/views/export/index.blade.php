@@ -28,13 +28,14 @@
                                             </button>
                                         </div>
 
-                                        <div class="sm:col-span-1">
+                                        <div class="sm:col-span-2">
                                             <div>
                                                 <label for="period" class="sr-only">Period</label>
                                                 <select id="period"
                                                         name="period"
                                                         class="mt-6 py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                                     @foreach([
+                                                                'errors' => 'Only '  . $errorCount . ' records with export errors',
                                                                 'never' => 'Only '  . $neverCount . ' records that have never been exported',
                                                                 'all' => 'All ' . $allCount . ' records',
                                                                 'day' => 'Last exported more than 1 day ago (' . $allCount . ')',
@@ -45,6 +46,25 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="sm:col-span-1">
+                                            <div class="relative flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="validate"
+                                                           name="validate"
+                                                           value="1"
+                                                           type="checkbox"
+                                                           checked="checked"
+                                                           class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="comments"
+                                                           class="font-medium text-gray-700">
+                                                        Validate Records
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
 

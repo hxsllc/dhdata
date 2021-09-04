@@ -26,6 +26,7 @@ class ExportController extends Controller
             'neverCount' => Record::has('images')
                                 ->whereNull('lastExportedOn')
                                 ->count(),
+            'errorCount' => ValidationErrors::count(),
             'errors' => ValidationErrors::paginate(25),
         ]);
     }
@@ -40,8 +41,8 @@ class ExportController extends Controller
         DB::table('validation_errors')->truncate();
 
         Artisan::call('manifests:export', [
-            'validate' => true,
-            'period' => $request->period,
+            'validate' => $request->get('validate', 0),
+            'period' => $request->get('period'),
         ]);
 
         return redirect()->back();
