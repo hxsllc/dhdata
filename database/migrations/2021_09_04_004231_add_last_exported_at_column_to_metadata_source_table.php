@@ -6,7 +6,11 @@ use Illuminate\Support\Facades\Schema;
 
 class AddLastExportedAtColumnToMetadataSourceTable extends Migration
 {
-
+    /**
+     * The database connection that should be used by the migration.
+     *
+     * @var string
+     */
     protected $connection = 'slu';
 
     /**
@@ -17,7 +21,7 @@ class AddLastExportedAtColumnToMetadataSourceTable extends Migration
     public function up()
     {
         Schema::table('metadata_source', function (Blueprint $table) {
-            $table->dateTime('last_imported_at')->nullable();
+            $table->dateTime('lastImportedOn')->nullable();
         });
     }
 
@@ -29,7 +33,7 @@ class AddLastExportedAtColumnToMetadataSourceTable extends Migration
     public function down()
     {
         Schema::table('metadata_source', function (Blueprint $table) {
-            $table->dropColumn('last_imported_at');
+            $table->dropColumn('lastImportedOn');
         });
     }
 }
