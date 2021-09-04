@@ -61,15 +61,15 @@ class ExportManifests extends Command
                 Storage::disk('manifests')->put('VFL_'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
                 $this->info('Exported: ' . 'VFL_'.$record->mFolderNumber.'.json');
                 $path = Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json');
-                
+
                 if(! empty($this->argument('validate'))) {
                     $exported = $this->validateManifest($path);
                 } else {
                     $exported = true;
                 }
                 if($exported){
-                    $manifest->lastExportedOn = now();
-                    $manifest->save();
+                    $record->lastExportedOn = now();
+                    $record->save();
                     $manifests[] = $path;
                 }
             }
