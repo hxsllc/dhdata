@@ -38,7 +38,9 @@ class ExportController extends Controller
      */
     public function process(Request $request)
     {
-        DB::table('validation_errors')->truncate();
+        if($request->get('period') != 'errors'){
+            DB::table('validation_errors')->truncate();
+        }
 
         Artisan::call('manifests:export', [
             'validate' => $request->get('validate', 0),

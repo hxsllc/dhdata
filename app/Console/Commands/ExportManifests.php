@@ -7,6 +7,7 @@ use App\Models\Record;
 use App\Models\ValidationErrors;
 use Illuminate\Console\Command;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -57,6 +58,7 @@ class ExportManifests extends Command
                     $errors = ValidationErrors::pluck('manifest');
                     dd($errors);
                     $record = $record->whereIn('manifest', $errors);
+                    DB::table('validation_errors')->truncate();
                     break;
                 case 'day':
                     $record = $record->where(function ($query) {
