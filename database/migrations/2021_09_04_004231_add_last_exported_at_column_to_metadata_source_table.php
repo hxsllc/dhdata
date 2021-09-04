@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Schema;
 
 class AddLastExportedAtColumnToMetadataSourceTable extends Migration
 {
+
+    protected $connection = 'slu';
+
     /**
      * Run the migrations.
      *
@@ -25,7 +28,7 @@ class AddLastExportedAtColumnToMetadataSourceTable extends Migration
      */
     public function down()
     {
-        Schema::connection('slu')->table('metadata_source', function (Blueprint $table) {
+        Schema::table('metadata_source', function (Blueprint $table) {
             $table->dropColumn('last_imported_at');
         });
     }
