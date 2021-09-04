@@ -56,28 +56,32 @@ class ExportManifests extends Command
 
         $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
             foreach($records as $record){
+                $exported = false;
                 $manifest = Record::manifest($record);
                 Storage::disk('manifests')->put('VFL_'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
                 $this->info('Exported: ' . 'VFL_'.$record->mFolderNumber.'.json');
-                $manifests[] = Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json');
+                $path = Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json');
+                
+                if(! empty($this->argument('validate'))) {
+                    $exported = $this->validateManifest($path);
+                } else {
+                    $exported = true;
+                }
+                if($exported){
+                    $manifest->lastExportedOn = now();
+                    $manifest->save();
+                    $manifests[] = $path;
+                }
             }
         });
 
         $this->info('Total Manifests Exported: ' . count($manifests));
-
-        if(! empty($this->argument('validate'))) {
-            foreach ($manifests as $manifest) {
-                $this->validateManifest($manifest);
-                usleep(250000); // .25 seconds
-            }
-        }
-
-        $manifest->lastExportedOn = now();
-        $manifest->save();
     }
 
     function validateManifest($manifest)
     {
+        $validated = false;
+
         $this->info('Manifest URL: ' . $manifest);
 
         try{
@@ -88,6 +92,7 @@ class ExportManifests extends Command
 
             if($response['okay'] == 1){
                 $this->info('OK');
+                $validated = true;
             }else{
                 // TODO: save errors to database
                 // TODO: should we save valid check when manifest is generated and not recheck?
@@ -103,7 +108,9 @@ class ExportManifests extends Command
                 'message' => 'Connection Error: ' . $e->getMessage(),
             ]);
             $this->error('Error: ' . $e->getMessage());
+            usleep(5000000); // Wait 5 seconds
         }
 
+        return $validated;
     }
 }
