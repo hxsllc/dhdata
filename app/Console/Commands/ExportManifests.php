@@ -49,7 +49,7 @@ class ExportManifests extends Command
         }
 
         if(! empty($this->argument('period')) && $this->argument('period') != 'all'){
-            $record = $record->where('lastExportedAt', '<', now()->subHours($this->argument('period')));
+            $record = $record->where('lastExportedOn', '<', now()->subHours($this->argument('period')));
         }
 
         $manifests = [];
