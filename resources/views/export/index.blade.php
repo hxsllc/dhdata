@@ -38,7 +38,7 @@
                                                                 'errors' => 'Only '  . $errorCount . ' records with export errors',
                                                                 'never' => 'Only '  . $neverCount . ' records that have never been exported',
                                                                 'all' => 'All ' . $allCount . ' records',
-                                                                'day' => 'Last exported more than 1 day ago (' . $allCount . ')',
+                                                                'day' => 'Last exported more than 1 day ago (' . $dayCount . ')',
                                                             ] as $key => $period)
                                                         <option value="{{ $key }}"
                                                             @if(request('period') == $key) selected @endif>
