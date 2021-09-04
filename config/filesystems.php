@@ -44,7 +44,7 @@ return [
 
         'manifests' => [
             'driver' => 'local',
-            'root' => '/var/www/html/iiif',
+            'root' => env('IIIF_EXPORT_DIRECTORY'),
             'url' => 'https://metascripta.org/iiif',
             'visibility' => 'public',
             'permissions' => [
