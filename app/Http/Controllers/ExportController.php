@@ -20,7 +20,7 @@ class ExportController extends Controller
         return view('export.index', [
             'allCount' => Record::has('images')->count(),
             'dayCount' => Record::has('images')->where(function ($query) {
-                                    $query->where('lastExportedOn', '<', now()->subHours(24))
+                                    $query->whereDate('lastExportedOn', '<', now())
                                             ->orWhereNull('lastExportedOn');
                                 })->count(),
             'neverCount' => Record::has('images')
