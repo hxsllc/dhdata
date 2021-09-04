@@ -34,6 +34,7 @@ class ExportController extends Controller
 
         Artisan::call('manifests:export', [
             'validate' => true,
+            'period' => $request->period,
         ]);
 
         return redirect()->back();

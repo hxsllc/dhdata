@@ -20,12 +20,35 @@
                             <div class="py-2 align-middle sm:px-6 lg:px-8">
 
                                 <div class="my-4">
-                                    <form action="{{ route('export.process') }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 sm:gap-x-8">
+                                    <form action="{{ route('export.process') }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-8">
                                         @csrf
                                         <div class="sm:col-span-1">
                                             <button type="submit" class="mt-6 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                Regenerate all {{ $count }} manifests
+                                                Regenerate manifests
                                             </button>
+                                        </div>
+
+                                        <div class="sm:col-span-1">
+                                            <div>
+                                                <label for="period" class="sr-only">Period</label>
+                                                <select id="period"
+                                                        name="period"
+                                                        class="mt-6 py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
+                                                    @foreach([
+                                                                'all' => 'All ' . $count,
+                                                                '1' => 'Last Exported more than 1 hour ago',
+                                                                '24' => 'Last Exported more than 1 day ago',
+                                                                '48' => 'Last Exported more than 2 days ago',
+                                                                '168' => 'Last Exported more than 1 week ago',
+                                                                '720' => 'Last Exported more than 30 days ago',
+                                                            ] as $key => $period)
+                                                        <option value="{{ $key }}"
+                                                            @if(request('period') == $key) selected @endif>
+                                                            {{ $period }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
 
                                     </form>

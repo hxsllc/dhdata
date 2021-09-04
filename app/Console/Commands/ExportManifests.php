@@ -16,7 +16,7 @@ class ExportManifests extends Command
      *
      * @var string
      */
-    protected $signature = 'manifests:export {record?} {validate?}';
+    protected $signature = 'manifests:export {record?} {validate?} {period?}';
 
     /**
      * The console command description.
@@ -48,6 +48,10 @@ class ExportManifests extends Command
             $record = $record->where('mFolderNumber', $this->argument('record'));
         }
 
+        if(! empty($this->argument('period')) && $this->argument('period') != 'all'){
+            $record = $record->where('lastExportedAt', '<', now()->subHours($this->argument('period')));
+        }
+
         $manifests = [];
 
         $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
@@ -64,9 +68,12 @@ class ExportManifests extends Command
         if(! empty($this->argument('validate'))) {
             foreach ($manifests as $manifest) {
                 $this->validateManifest($manifest);
+                usleep(250000); // .25 seconds
             }
         }
 
+        $manifest->lastExportedOn = now();
+        $manifest->save();
     }
 
     function validateManifest($manifest)
