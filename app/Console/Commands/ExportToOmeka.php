@@ -49,7 +49,7 @@ class ExportToOmeka extends Command
         $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
             foreach($records as $record){
                 $this->info('Exported: ' . $record->mFolderNumber);
-                Omeka::createItem([]);
+                Omeka::createItem((new Omeka())->getItemTemplate($record));
                 $manifests[] = $record->mFolderNumber;
             }
         });

@@ -35,12 +35,9 @@
                                                         name="period"
                                                         class="mt-6 py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md">
                                                     @foreach([
-                                                                'all' => 'All ' . $count,
-                                                                '1' => 'Last Exported more than 1 hour ago',
-                                                                '24' => 'Last Exported more than 1 day ago',
-                                                                '48' => 'Last Exported more than 2 days ago',
-                                                                '168' => 'Last Exported more than 1 week ago',
-                                                                '720' => 'Last Exported more than 30 days ago',
+                                                                'never' => 'Only '  . $neverCount . ' records that have never been exported',
+                                                                'all' => 'All ' . $allCount . ' records',
+                                                                'day' => 'Last exported more than 1 day ago (' . $allCount . ')',
                                                             ] as $key => $period)
                                                         <option value="{{ $key }}"
                                                             @if(request('period') == $key) selected @endif>

@@ -18,7 +18,14 @@ class ExportController extends Controller
     public function index()
     {
         return view('export.index', [
-            'count' => Record::has('images')->count(),
+            'allCount' => Record::has('images')->count(),
+            'dayCount' => Record::has('images')->where(function ($query) {
+                                    $query->where('lastExportedOn', '<', now()->subHours(24))
+                                            ->orWhereNull('lastExportedOn');
+                                })->count(),
+            'neverCount' => Record::has('images')
+                                ->whereNull('lastExportedOn')
+                                ->count(),
             'errors' => ValidationErrors::paginate(25),
         ]);
     }

@@ -50,10 +50,17 @@ class ExportManifests extends Command
         }
 
         if(! empty($this->argument('period')) && $this->argument('period') != 'all'){
-            $record = $record->where(function ($query) {
-                $query->where('lastExportedOn', '<', now()->subHours($this->argument('period')))
-                        ->orWhereNull('lastExportedOn');
-            });
+            switch($this->argument('period')){
+                case 'day':
+                    $record = $record->where(function ($query) {
+                        $query->where('lastExportedOn', '<', now()->subHours(24))
+                            ->orWhereNull('lastExportedOn');
+                    });
+                    break;
+                case 'never':
+                    $record = $record->whereNull('lastExportedOn');
+                    break;
+            }
         }
 
         $manifests = [];
