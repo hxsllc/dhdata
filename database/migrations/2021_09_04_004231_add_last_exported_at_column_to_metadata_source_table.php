@@ -20,9 +20,9 @@ class AddLastExportedAtColumnToMetadataSourceTable extends Migration
      */
     public function up()
     {
-        Schema::table('metadata_source', function (Blueprint $table) {
+        /*Schema::table('metadata_source', function (Blueprint $table) {
             $table->dateTime('lastImportedOn')->nullable();
-        });
+        });*/
     }
 
     /**
