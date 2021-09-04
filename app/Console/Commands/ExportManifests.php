@@ -50,7 +50,7 @@ class ExportManifests extends Command
 
         $manifests = [];
 
-        $record = $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
+        $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
             foreach($records as $record){
                 $manifest = Record::manifest($record);
                 Storage::disk('manifests')->put('VFL_'.$record->mFolderNumber.'.json', json_encode($manifest, JSON_PRETTY_PRINT));
@@ -86,14 +86,14 @@ class ExportManifests extends Command
                 // TODO: should we save valid check when manifest is generated and not recheck?
                 ValidationErrors::create([
                     'manifest' => $manifest,
-                    'message' => $response['error'],
+                    'message' => 'Validation Error: ' . $response['error'],
                 ]);
                 $this->error('Error: ' . $response['error']);
             }
         } catch (\Exception $e){
             ValidationErrors::create([
                 'manifest' => $manifest,
-                'message' => $e->getMessage(),
+                'message' => 'Connection Error: ' . $e->getMessage(),
             ]);
             $this->error('Error: ' . $e->getMessage());
         }

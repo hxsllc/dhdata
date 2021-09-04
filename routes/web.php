@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/records/{record}/push', [\App\Http\Controllers\RecordController::class, 'pushToQueue'])->name('records.push');
     Route::get('/export', [\App\Http\Controllers\ExportController::class, 'index'])->name('export');
     Route::post('/export', [\App\Http\Controllers\ExportController::class, 'process'])->name('export.process');
+    Route::get('/omeka', [\App\Http\Controllers\OmekaController::class, 'index'])->name('omeka');
+    Route::post('/omeka', [\App\Http\Controllers\OmekaController::class, 'process'])->name('omeka.process');
 
     Route::get('/web-import', [\App\Http\Controllers\WebImportController::class, 'index'])->name('import.index');
     Route::get('/web-import/{record}/edit', [\App\Http\Controllers\WebImportController::class, 'edit'])->name('import.edit');

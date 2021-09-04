@@ -49,7 +49,10 @@
                                 {{ __('Users') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('export')">
-                                {{ __('Export') }}
+                                {{ __('Manifests') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('omeka')">
+                                {{ __('Omeka') }}
                             </x-dropdown-link>
                         @endif
                         <!-- Authentication -->

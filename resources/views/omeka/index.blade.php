@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Export Manifests') }}
+            {{ __('Export to Omeka') }}
         </h2>
     </x-slot>
 
@@ -20,11 +20,11 @@
                             <div class="py-2 align-middle sm:px-6 lg:px-8">
 
                                 <div class="my-4">
-                                    <form action="{{ route('export.process') }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 sm:gap-x-8">
+                                    <form action="{{ route('omeka.process') }}" method="POST" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 sm:gap-x-8">
                                         @csrf
                                         <div class="sm:col-span-1">
                                             <button type="submit" class="mt-6 w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                                Regenerate all {{ $count }} manifests
+                                                 Export to Omeka
                                             </button>
                                         </div>
 

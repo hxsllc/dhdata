@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Record;
-use App\Models\ValidationErrors;
+use App\Models\OmekaErrors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 
-class ExportController extends Controller
+class OmekaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,8 @@ class ExportController extends Controller
      */
     public function index()
     {
-        return view('export.index', [
-            'count' => Record::has('images')->count(),
-            'errors' => ValidationErrors::paginate(25),
+        return view('omeka.index', [
+            'errors' => OmekaErrors::paginate(25),
         ]);
     }
 
@@ -30,10 +28,10 @@ class ExportController extends Controller
      */
     public function process(Request $request)
     {
-        DB::table('validation_errors')->truncate();
+        DB::table('omeka_errors')->truncate();
 
-        Artisan::call('manifests:export', [
-            'validate' => true,
+        Artisan::call('omeka:export', [
+
         ]);
 
         return redirect()->back();
