@@ -25,7 +25,7 @@ class AddLastExportedAtColumnToMetadataSourceTable extends Migration
      */
     public function down()
     {
-        Schema::table('metadata_source', function (Blueprint $table) {
+        Schema::connection('slu')->table('metadata_source', function (Blueprint $table) {
             $table->dropColumn('last_imported_at');
         });
     }
