@@ -6,6 +6,7 @@ use App\Models\Item;
 use App\Models\Record;
 use App\Models\ValidationErrors;
 use Illuminate\Console\Command;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,7 +50,10 @@ class ExportManifests extends Command
         }
 
         if(! empty($this->argument('period')) && $this->argument('period') != 'all'){
-            $record = $record->where('lastExportedOn', '<', now()->subHours($this->argument('period')));
+            $record = $record->where(function ($query) {
+                $query->where('lastExportedOn', '<', now()->subHours($this->argument('period')))
+                        ->orWhereNull('lastExportedOn');
+            });
         }
 
         $manifests = [];
