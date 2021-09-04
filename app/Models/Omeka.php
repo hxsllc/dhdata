@@ -16,6 +16,10 @@ class Omeka
 
     static public function createItem($json)
     {
+        // Check if item exists
+
+        // Create new item or update existing item
+
         return true;
     }
 
