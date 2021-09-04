@@ -89,9 +89,7 @@ class ExportManifests extends Command
                     $exported = true;
                 }
                 if($exported){
-                    unset($record->attributes['roll_is_edited']);
-                    $record->lastExportedOn = now();
-                    $record->save();
+                    $record->update(['lastExportedOn' => now()]);
                     $manifests[] = $path;
                 }
             }
