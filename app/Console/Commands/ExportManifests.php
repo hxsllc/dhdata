@@ -72,7 +72,7 @@ class ExportManifests extends Command
 
         $manifests = [];
 
-        $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
+        $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(100, function($records) use (&$manifests){
             foreach($records as $record){
                 $exported = false;
                 $manifest = Record::manifest($record);
