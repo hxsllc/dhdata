@@ -256,6 +256,16 @@
                                                     <form action="{{ route('records.export.manifest', ['record' => $record]) }}" method="POST"
                                                           class="inline-block">
                                                         @csrf
+                                                        @if(Storage::disk('manifests')->exists('VFL_'.$record->mFolderNumber.'.json'))
+                                                            <div class="text-center mb-2">
+                                                                <a class="text-green-900 uppercase !font-semibold hover:underline"
+                                                                   href="{{ Storage::disk('manifests')->url('VFL_'.$record->mFolderNumber.'.json') }}"
+                                                                   target="manifest"
+                                                                >
+                                                                    JSON
+                                                                </a>
+                                                            </div>
+                                                        @endif
                                                         <button type="submit" class="inline-flex items-center mx-2 px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                                                             {{ _('Export Manifest') }}
                                                         </button>

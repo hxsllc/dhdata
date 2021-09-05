@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Http;
+
 class Omeka
 {
     public $itemSets;
@@ -14,13 +16,39 @@ class Omeka
         return $this->itemSets;
     }
 
-    static public function createItem($json)
+    public function createItem($record)
     {
         // Check if item exists
+        $item = $this->search($record->mFolderNumber);
 
-        // Create new item or update existing item
+        if(count($item) > 0){
+            $response = Http::withOptions([
+                'stream' => true,
+                'version' => '1.0',
+            ])
+                ->withBody($this->getItemTemplate($record))
+                ->put('http://metascripta.test/api/items');
+        }else{
+            $response = Http::withOptions([
+                'stream' => true,
+                'version' => '1.0',
+            ])
+                ->withBody($this->getItemTemplate($record))
+                ->post('http://metascripta.test/api/items');
+        }
 
         return true;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function search($identifier)
+    {
+        return Http::withOptions([
+            'stream' => true,
+            'version' => '1.0',
+        ])->get('http://metascripta.test/api/items?fulltext_search=&property[0][joiner]=and&property[0][property]=10&property[0][type]=eq&resource_class_id[]=&item_set_id[]=&submit=Search&property[0][text]=' . $identifier);
     }
 
     public function getItemTemplate(Record $record)
