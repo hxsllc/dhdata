@@ -19,22 +19,22 @@ class Omeka
     public function createItem($record)
     {
         // Check if item exists
-        $item = $this->search($record->mFolderNumber);
-
-        if(count($item) > 0){
+        $items = $this->search($record->mFolderNumber);
+        // TODO: This doesn't work going from my virtual machine to Laragon. I'll probably need to set up Omeka on Forge.
+        if(count($items) > 0){
             $response = Http::withOptions([
                 'stream' => true,
                 'version' => '1.0',
             ])
                 ->withBody($this->getItemTemplate($record))
-                ->put('http://metascripta.test/api/items');
+                ->put('http://metascripta.test/api/items?key_identity=' . config('omeka.key') . '&key_credential=' . config('omeka.secret'));
         }else{
             $response = Http::withOptions([
                 'stream' => true,
                 'version' => '1.0',
             ])
                 ->withBody($this->getItemTemplate($record))
-                ->post('http://metascripta.test/api/items');
+                ->post('http://metascripta.test/api/items?key_identity=' . config('omeka.key') . '&key_credential=' . config('omeka.secret'));
         }
 
         return true;

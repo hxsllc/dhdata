@@ -58,6 +58,40 @@
 
                                             @include('records.form')
 
+                                            <div class="grid grid-cols-4 mt-8">
+                                                <div class="grid-cols-1">
+                                                    <div class="relative flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="export_manifest"
+                                                                   name="export_manifest"
+                                                                   type="checkbox"
+                                                                   class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="export_manifest"
+                                                                   class="font-medium text-gray-700">
+                                                                Export Manifest
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="grid-cols-1">
+                                                    <div class="relative flex items-start">
+                                                        <div class="flex items-center h-5">
+                                                            <input id="export_to_omeka"
+                                                                   name="export_to_omeka"
+                                                                   type="checkbox"
+                                                                   class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                                        </div>
+                                                        <div class="ml-3 text-sm">
+                                                            <label for="export_to_omeka"
+                                                                   class="font-medium text-gray-700">
+                                                                Export to Omeka
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="sm:col-span-4 mt-8">
                                                 <button type="submit" class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                                     {{ __('Update') }}

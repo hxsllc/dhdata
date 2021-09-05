@@ -46,7 +46,7 @@ class ExportToOmeka extends Command
             $record = $record->where('mFolderNumber', $this->argument('record'));
         }
 
-        $record->has('images')->orderBy('mCodexNumberNew', 'ASC')->chunk(20, function($records) use (&$manifests){
+        $record->has('images')->chunk(20, function($records) use (&$manifests){
             foreach($records as $record){
                 $this->info('Exported: ' . $record->mFolderNumber);
                 ( new Omeka())->createItem($record);
