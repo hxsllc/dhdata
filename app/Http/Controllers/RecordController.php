@@ -152,13 +152,13 @@ class RecordController extends Controller
 
         $record->save();
 
-        if($request->get('export_manifest')){
+        if($request->get('export_manifest') == 'export'){
             Artisan::call('manifests:export', [
                 'record' => $record->mFolderNumber,
             ]);
         }
 
-        if($request->get('export_to_omeka')){
+        if($request->get('export_to_omeka') == 'export'){
             Artisan::call('omeka:export', [
                 'record' => $record->mFolderNumber,
             ]);

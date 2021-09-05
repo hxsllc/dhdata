@@ -65,6 +65,7 @@
                                                             <input id="export_manifest"
                                                                    name="export_manifest"
                                                                    type="checkbox"
+                                                                   value="export"
                                                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
@@ -81,6 +82,7 @@
                                                             <input id="export_to_omeka"
                                                                    name="export_to_omeka"
                                                                    type="checkbox"
+                                                                   value="export"
                                                                    class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
                                                         </div>
                                                         <div class="ml-3 text-sm">
