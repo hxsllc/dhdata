@@ -14,10 +14,10 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()
+        /*User::factory()
                 ->create([
-                    'name' => 'Jon Fackrell',
-                    'email' => 'jon.fackrell@gmail.com',
-                ]);
+                    'name' => 'John Doe',
+                    'email' => 'john.doe@example.com',
+                ]);*/
     }
 }
